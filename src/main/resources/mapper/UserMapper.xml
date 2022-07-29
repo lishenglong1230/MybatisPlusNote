@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.example.mybatisplus.mapper.UserMapper">
+
+    <!--名称映射解决方案1-->
+  <!--  <resultMap id="myUser" type="com.example.mybatisplus.entity.User">
+        <id column="id" property="id" />
+        <result column="uname" property="name"></result>
+
+    </resultMap>
+-->
+    <!--名称映射解决方案2-->
+    <!--<sql id="Base_Column_List">
+       id,
+       uname as name,
+       age,
+       email
+    </sql>-->
+
+    <sql id="Base_Column_List">
+       id, uname, age, email
+    </sql>
+
+    <select id="selectAllByName" resultType="com.example.mybatisplus.entity.User">
+        select
+        <include refid="Base_Column_List"/>
+        from user
+        where
+        name = #{name}
+    </select>
+
+    <select id="selectPageByPage" resultType="com.example.mybatisplus.entity.User">
+        SELECT <include refid="Base_Column_List"/> FROM user WHERE age > #{age}
+    </select>
+
+</mapper>
